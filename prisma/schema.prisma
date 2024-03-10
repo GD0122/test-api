@@ -8,7 +8,7 @@ generator client {
   provider = "prisma-client-js"
   priviewFeatures=["mongodb"]
   engineType= "liblary"
-  output   = "./generated/client"
+ 
 }
 
 datasource db {
