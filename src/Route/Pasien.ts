@@ -1,6 +1,6 @@
 
 import { Router } from 'express';
-import { _addPasien, _addPasien2, _getPasien, _getPasien2 } from '../Handler/Pasien';
+import {  _addPasien2,  _getPasien2 } from '../Handler/Pasien';
 
 
 
