@@ -7,7 +7,11 @@
     "start": "nodemon ./src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "postinstall": "prisma generate"
+<<<<<<< HEAD
     
+=======
+   
+>>>>>>> 595227b6f7e3dc0c72750a77fc86ca70f81896ec
   },
   "author": "hudi indrawan",
   "license": "MIT",
