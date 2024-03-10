@@ -1,14 +1,12 @@
 
 import { Router } from 'express';
+import { _addPasien, _addPasien2, _getPasien, _getPasien2 } from '../Handler/Pasien';
 
 
 
-export const Pasien = Router()
-Pasien.get('/',(req,res)=>{
-    res.send("hello")
-})
+export const routerPas = Router()
+// Pasien.post('/tambah_pasien',_addPasien)
 
-Pasien.get('/oi',(req,res)=>{
-    res.send("coba")
-})
-
+// Pasien.get('/',_getPasien)
+routerPas.post('/addPasien',_addPasien2)
+routerPas.get('/',_getPasien2)
