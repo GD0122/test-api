@@ -45,9 +45,9 @@ let corsOptions = {
     maxAge:8000,
 }
 app.use(express.static("public")) 
-app.all('*',(req,res)=>{
-    return res.status(404).json(ErrStatus[0].err404.message).end()
-})
+// app.all('*',(req,res)=>{
+//     return res.status(404).json(ErrStatus[0].err404.message).end()
+// })
 app.use(cors(corsOptions))
 
 app.get('/',(req,res)=>{
