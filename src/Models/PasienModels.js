@@ -18,9 +18,9 @@ const _PasienSchema = new mongoose.Schema({
         type:String,
         required:true,
     },
-    tanggal:{
+    createdAT:{
         type:Date,
-        require:true,
+        
     }
 })
 const PasienModel = mongoose.model("Pasien", _PasienSchema);

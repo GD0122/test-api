@@ -16,13 +16,20 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
+
+
 model Pasien{
   id String @id @default(auto()) @map("_id") @db.ObjectId
-  name String
+  name String @unique
   alamat String
-  noTelp  Int
+  noTelp  String
   umur  Int
   rekam  Rekam[]
+  jadwal Jadwals[]
+  gambar Gambar[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Rekam{
@@ -30,6 +37,77 @@ model Rekam{
   tindakan String
   diagnosa  String
   terapi  String
+  dokter String?
+  perawat String?
+  adm Adm[]
+  createdAt DateTime @default(now())
   pasien Pasien @relation(fields:[pasienId], references:[id])
   pasienId String @db.ObjectId
+  updatedAt DateTime @updatedAt
+}
+
+model Users{
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  username String  @unique
+  password String
+  role Role             @default(USER)
+  refresh_token String? @unique
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+
+}
+
+model Jadwals{
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  pasien Pasien @relation(fields:[pasienId], references:[id])
+  pasienId String @db.ObjectId
+  waktu String?
+  tanggal DateTime?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+}
+model Barang{
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  nama_barang String?
+  qty Int?
+  jenis_barang Brng @default(Pcs)
+  harga_barang Int?
+  adm Adm[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Adm{
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  jenis String?
+  pendapatan Int?
+  pengeluaran Int?
+  bersih Int?
+  ket String?
+  rekam Rekam? @relation(fields:[formId],references:[id])
+  barang Barang? @relation(fields:[formId],references:[id])
+  formId String? @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Gambar{
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  name String?
+  datas String?
+  content_type String?
+  pasien Pasien @relation(fields:[pasienId], references:[id])
+  pasienId String @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum Brng{
+  Pack
+  Pcs
+}
+enum Role{
+  USER 
+  ADMIN
 }
