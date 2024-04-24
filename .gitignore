@@ -3,4 +3,3 @@ node_modules
 .env
 ./env
 .vercel
-./Config/KEYS.json
