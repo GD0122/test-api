@@ -85,22 +85,22 @@ morgan.token('body', (req: Request, res: Response) => JSON.stringify(req.body));
 morgan.token('query', (req: Request, res: Response) => JSON.stringify(req.query));
 
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' });
-app.use(morgan((tokens:any, req: Request, res: Response) => {
-    const currentDate = new Date().toISOString();
-    return [
-      `[${currentDate}]`,
-      tokens.method(req, res),
-      tokens.url(req, res),
-      tokens.status(req, res),
-      JSON.stringify(req.params),
-      JSON.stringify(req.body),
-      JSON.stringify(req.query),
-      tokens['response-time'](req, res), 'ms',
-      '-',
-      tokens['remote-addr'](req, res),
-      tokens['user-agent'](req, res),
-    ].join(' ');
-  }, { stream: accessLogStream, skip: (req: Request, res: Response) => req.method === 'GET' }));
+// app.use(morgan((tokens:any, req: Request, res: Response) => {
+//     const currentDate = new Date().toISOString();
+//     return [
+//       `[${currentDate}]`,
+//       tokens.method(req, res),
+//       tokens.url(req, res),
+//       tokens.status(req, res),
+//       JSON.stringify(req.params),
+//       JSON.stringify(req.body),
+//       JSON.stringify(req.query),
+//       tokens['response-time'](req, res), 'ms',
+//       '-',
+//       tokens['remote-addr'](req, res),
+//       tokens['user-agent'](req, res),
+//     ].join(' ');
+//   }, { stream: accessLogStream, skip: (req: Request, res: Response) => req.method === 'GET' }));
   
   // Routes
 
