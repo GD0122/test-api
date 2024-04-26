@@ -41,19 +41,19 @@ app.disable('x-powered-by')
 
 
 
-const Limiter = rateLimit({
-    windowMs:1*60*1000,
-    max:50
-})
+// const Limiter = rateLimit({
+//     windowMs:1*60*1000,
+//     max:50
+// })
 
-app.use(Limiter)
+// app.use(Limiter)
 
 
-app.use(cors({
-    origin:'http://localhost:3000',
-    credentials:true,
+// app.use(cors({
+//     origin:'http://localhost:3000',
+//     credentials:true,
     
-}))
+// }))
 
 
 
