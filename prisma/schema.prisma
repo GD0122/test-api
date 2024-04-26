@@ -24,12 +24,13 @@ model Pasien{
   name String @unique
   alamat String
   noTelp  String
-  umur  Int
+  tanggalLahir DateTime? @default(now())
   rekam  Rekam[]
   jadwal Jadwals[]
   gambar Gambar[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  
 }
 
 model Rekam{

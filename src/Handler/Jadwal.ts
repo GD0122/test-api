@@ -15,7 +15,7 @@ interface Jadwal {
             name: string;
             alamat: string;
             noTelp: string;
-            umur: number;
+            tanggalLahir:Date;
             createdAt: Date;
             updatedAt: Date;
         };

@@ -19,7 +19,7 @@ export const _validation_pasien = (data:Object)=>{
         name:Joi.string().min(3).max(50).required(),
         alamat:Joi.string().min(3).max(100).required(),
         noTelp:Joi.string().min(10).max(13).required(),
-        umur:Joi.number().integer().min(1).max(100).required()
+        tanggalLahir: Joi.date().iso().optional()
     })
 
     return schema.validate(data)

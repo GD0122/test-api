@@ -10,7 +10,7 @@ import {  _addPasien2,
 import { _csrfProtect, _parse_Form } from '../Handler/_CsrfProtect';
 import { _VerifyToken } from '../validation/_Verify_token';
 import { _validation_admin } from '../validation/_validation_Admin';
-
+import { PrismaClient } from '@prisma/client';
 
 
 

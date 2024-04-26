@@ -33,7 +33,7 @@ _UploadsRoute.get('/gambar',_csrfProtect,_VerifyToken,_getImage)
 _UploadsRoute.get('/gambars',_parse_Form,_csrfProtect,_getImages)
 _UploadsRoute.get('/gambarss',_VerifyToken,_validation_admin,_getImages)
 _UploadsRoute.delete('/gambar/delete',_VerifyToken,_validation_admin, _deleteFilesImages)
-
+_UploadsRoute.post('/addgambar',uploads.array('images',5),_IsImage,_uploadersImages)
 
 
 // _UploadsRoute.use(async(err:Error, req:Request, res:Response, next:express.NextFunction) => {

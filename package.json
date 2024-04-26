@@ -12,7 +12,7 @@
   "author": "hudi indrawan",
   "license": "MIT",
   "dependencies": {
-    "@prisma/client": "^5.10.2",
+    "@prisma/client": "^5.13.0",
     "@types/bcrypt": "^5.0.2",
     "@types/crypto-js": "^4.2.2",
     "@types/jsonwebtoken": "^9.0.6",
@@ -51,7 +51,7 @@
     "@types/rimraf": "^4.0.5",
     "morgan": "^1.10.0",
     "nodemon": "^3.1.0",
-    "prisma": "^5.10.2",
+    "prisma": "^5.13.0",
     "typescript": "^5.4.2"
   }
 }

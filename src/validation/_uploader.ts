@@ -1,26 +1,35 @@
 import { Stream } from "stream"
 import {google} from 'googleapis' 
-import { auth } from "../Handler/Uploads"
+import path from 'path'
 import fs from 'fs'
+const credentials = require('./credentials')
+const SCOPES = ["https://www.googleapis.com/auth/drive"];
+
+const auth = new google.auth.GoogleAuth({
+    credentials,
+    scopes:SCOPES
+});
+
 export const _uploaders = async(filesObj:any) =>{
-    
+  
     const fileData = fs.readFileSync(filesObj.path);
     const bufferS = new Stream.PassThrough()
     bufferS.end(fileData)
-
-    const response = await google.drive({ version: "v3", auth }).files.create({
+    const GLOGIN = await google.drive({ version: 'v3', auth });
+    const response = await GLOGIN.files.create({
         media: {
             mimeType: filesObj.mimeType,
             body: bufferS,
         },
         requestBody: {
             name: filesObj.originalname,
-            parents: ["1FdqmOVuCmobfdwHzjKRH4rirZbPccClV"],
+            parents: [process.env.PARENT_FILE],
         },
         fields: "id,name",
     }).catch((err)=>{
         throw err
     })as any;
+  
     const data = response.data
     return {data}
 

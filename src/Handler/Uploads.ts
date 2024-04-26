@@ -13,10 +13,7 @@ import CryptoJS from 'crypto-js';
 import { _validation_Images } from '../validation/_Validation';
 import { ErrStatus } from '../HTTPs/Status';
 import { ErrStatusDB } from '../HTTPs/Status';
-const KEYFILEPATH = path.join(__dirname, '../Config/KEYS.json')
 
-
-const SCOPES = ["https://www.googleapis.com/auth/drive"];
 
 
 interface ResponseData {
@@ -34,16 +31,11 @@ interface ResponseData {
  
 
 
-export const auth = new google.auth.GoogleAuth({
-    keyFile: KEYFILEPATH,
-    scopes: SCOPES,
-});
-
 const Salt_img = process.env.SALT_IMG
 const prisma = new PrismaClient()
 
 export const _Upload = async(req:Request,res:Response)=>{
-        const idP = req?.params?.id
+        const idP = req?.params?.id 
 
         const {nama_pas,idPas} = req.body
         const {error} = _validation_Images({idP})
@@ -76,7 +68,7 @@ export const _Upload = async(req:Request,res:Response)=>{
 
             const uploadSuccess = validImg?.map(image=> image.originalname)
             const uploadFail = invalidImg?.map(image=>image.originalname)
-            console.log(!uploadFail)
+          
             if(invalidImg.length === 0){
                 return res.status(201).json({message:`berhasil mengupload gambar ${uploadSuccess}`})
             }
@@ -147,9 +139,11 @@ export const _uploadersImages = async(req:Request,res:Response)=>{
 
   try {
     const SaveImages = await Promise.all(images.map(async (image) => {
-      const imagesFile = fs.readFileSync(image.path);
+     
+      
       try {
         const Guploads = await _uploaders(image);
+    
         const savedImage = await prisma.gambar.create({
         data: {
           name: image.originalname,
@@ -162,12 +156,13 @@ export const _uploadersImages = async(req:Request,res:Response)=>{
       });
     } catch (error) {
         console.error('Error uploading image:', error);
+        await fs.unlinkSync(image.path)
         throw error
     }
       await fs.unlinkSync(image.path)
      
  }));
-
+  
     const validImg = req.validImages as Express.Multer.File[]
     const invalidImg = req.invalidImages as Express.Multer.File[]
     const uploadSuccess = validImg?.map(image=> image.originalname)

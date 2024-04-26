@@ -13,15 +13,14 @@ export const _IsImage = async(req,res,next)=>{
     try {
       
       const _ViewImage = await Promise.all(images?.map(async (image) => {
-        console.log('thsi',image.path)
+      
         const isValid = await isImage(image.path)
     
     if (!isValid || image.size > maxSizeImg) {
         invalidImages.push(image);
-        
         try {
           await fs.unlinkSync(image.path);
-          console.log('gambar gagal berhasil dihapus')
+       
         } catch (error) {
           console.error('Error deleting invalid image:', error);
         }

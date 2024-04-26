@@ -10,9 +10,13 @@ import { _hashData } from "../validation/_hash_data"
 
 
 
+
 const prisma = new PrismaClient({
     log:["info"]
 })
+
+
+
 
 
 interface DataPasien {
@@ -21,7 +25,7 @@ interface DataPasien {
       id?:string,
       alamat?:string,
       noTelp?:string,
-      umur?:number,
+      tanggalLahir?:Date,
       createdAt?:Date,
       rekam?:any,
       jadwal?:any
@@ -37,10 +41,11 @@ interface DataPasien {
 
 export const _addPasien2 = async(req:Request,res:Response)=>{
   
-    const {name,alamat,noTelp,umur} = req.body
+    const {name,alamat,noTelp,tanggalLahir} = req.body
+    console.log(tanggalLahir)
+   
     
-
-    const {error} = _validation_pasien({name,alamat,noTelp,umur})
+    const {error} = _validation_pasien({name,alamat,noTelp,tanggalLahir})
     if(error) return res.status(404).json({message:error.details[0].message})
 
 
@@ -52,16 +57,13 @@ export const _addPasien2 = async(req:Request,res:Response)=>{
     const alamatHash = await _hashData(alamat)
     const noTelpHash = await _hashData(noTelp)
 
-    
-  
-
     try { 
         const add = await  prisma.pasien.create({
             data:{
                 name:name,
                 alamat:alamatHash,
                 noTelp:noTelpHash,
-                umur:parseInt(umur)
+                tanggalLahir:new Date(tanggalLahir),
             }
         }).catch((err)=>{
             throw err
@@ -85,9 +87,9 @@ export const _getPasien2 = async(req:Request,res:Response)=>{
     try {
        
         const data = await prisma.pasien.findUnique({where:{id:idP},
-        select:{id:true,name:true,alamat:true,noTelp:true,umur:true,createdAt:true}
+        select:{id:true,name:true,alamat:true,tanggalLahir:true,noTelp:true,createdAt:true}
         }).then((res)=>{
-            return {pasien:{name:res.name,id:res.id,alamat:res.alamat,CreatedAt:res.createdAt,noTelp:res.noTelp},}
+            return {pasien:{name:res.name,id:res.id,tanggalLahir:res.tanggalLahir,alamat:res.alamat,CreatedAt:res.createdAt,noTelp:res.noTelp},}
         })
         return res.status(200).json(data)
     } catch (error) {
@@ -109,7 +111,7 @@ export const _getPasien = async(req:Request,res:Response)=>{
     
         const [pasien, totalCount] = await Promise.all([
             prisma.pasien.findMany({
-              select:{id:true,name:true,noTelp:true,umur:true,alamat:true,createdAt:true,},
+              select:{id:true,name:true,noTelp:true,tanggalLahir:true,alamat:true,createdAt:true,},
               skip: (+page - 1) * +perPage,
               take: +perPage,
               orderBy: { createdAt: 'desc' }, 
@@ -139,13 +141,13 @@ export const _getPasien = async(req:Request,res:Response)=>{
 
 
 export const _editPasien = async(req:Request,res:Response)=>{
-    const {name,alamat,noTelp,umur} = req.body
+    const {name,alamat,noTelp,tanggalLahir} = req.body
     const id = req?.params?.id
     if(!id) return res.status(400).json(ErrStatus[0].err400.message)
+    console.log(tanggalLahir)
 
 
-
-    const {error} = _validation_pasien({name,alamat,noTelp,umur})
+    const {error} = _validation_pasien({name,alamat,noTelp,tanggalLahir})
    
     if(error) return res.status(404).json({message:error.details[0].message})
 
@@ -162,7 +164,8 @@ export const _editPasien = async(req:Request,res:Response)=>{
                 name,
                 alamat:alamatHash,
                 noTelp:noTelpHash,
-                umur:parseInt(umur),
+                tanggalLahir:new Date(tanggalLahir)
+                
             }
         }).catch((err)=>{throw err})
         return res.status(201).json("data sukses diupdate").end()
@@ -187,7 +190,7 @@ export const _searchPasien = async(req:Request,res:Response)=>{
             where: {
                 name: names
             },
-            select: {name: true, alamat: true, umur: true, createdAt: true, noTelp: true},
+            select: {name: true, alamat: true,tanggalLahir:true, createdAt: true, noTelp: true},
             
         }).catch((err) => {
             throw err
@@ -265,7 +268,7 @@ export const _SearchPasien = async(req:Request,res:Response)=>{
         const [pasien, count] = await Promise.all([
             prisma.pasien.findMany({
               where:{name:{contains:names,mode:"insensitive"}},
-              select:{id:true,name:true,noTelp:true,umur:true,alamat:true,createdAt:true,},
+              select:{id:true,name:true,noTelp:true,tanggalLahir:true,alamat:true,createdAt:true,},
               skip: (+page - 1) * +perPage,
               take: +perPage,
               orderBy: { createdAt: 'desc' }, 
@@ -298,7 +301,7 @@ export const _getPasienById = async(req:Request,res:Response)=>{
 
     try {
         const pasien = await prisma.pasien.findUnique({where:{id:id},
-        select:{id:true,umur:true,name:true,alamat:true,noTelp:true}})
+        select:{id:true,name:true,tanggalLahir:true,alamat:true,noTelp:true}})
         
         return res.status(200).json(pasien)
     } catch (error) {
