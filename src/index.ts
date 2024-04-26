@@ -84,7 +84,7 @@ morgan.token('body', (req: Request, res: Response) => JSON.stringify(req.body));
 // Custom token untuk mendapatkan nilai dari req.query
 morgan.token('query', (req: Request, res: Response) => JSON.stringify(req.query));
 
-const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' });
+// const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' });
 // app.use(morgan((tokens:any, req: Request, res: Response) => {
 //     const currentDate = new Date().toISOString();
 //     return [
