@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
     "version": 2,
     "builds": [
@@ -14,3 +15,14 @@
         }
     ]
 }
+=======
+{ "version": 2,
+ "rewrites": [
+    {
+    "source": "/(.*)",
+    "destination": "/src/index.ts"
+    }
+ ]
+    
+ }
+>>>>>>> db7ee79 (Update vercel.json)
