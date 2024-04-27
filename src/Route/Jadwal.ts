@@ -10,8 +10,8 @@ import { _VerifyToken } from "../validation/_Verify_token";
 export const _Jadwal_route = Router()
 
 _Jadwal_route.get('/all',_VerifyToken,_validation_admin,_getJadwal)
-_Jadwal_route.post('/tambah_jadwal/:id',_parse_Form,_csrfProtect,_VerifyToken,_validation_admin,_addJadwal)
-_Jadwal_route.put('/edit/:id',_parse_Form,_csrfProtect,_VerifyToken,_validation_admin,_editJadwal)
+_Jadwal_route.post('/tambah_jadwal/:id',_VerifyToken,_validation_admin,_addJadwal)
+_Jadwal_route.put('/edit/:id',_VerifyToken,_validation_admin,_editJadwal)
 _Jadwal_route.delete('/delete/:id',_VerifyToken,_validation_admin,_deleteJadwal)
 _Jadwal_route.post('/tambah/:id',_VerifyToken,_validation_admin,_addJadwal)
 _Jadwal_route.get('/todays',_VerifyToken,_validation_admin,GetJadwalToday)

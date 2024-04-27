@@ -108,7 +108,7 @@ export const _getJadwal = async(req:Request,res:Response)=>{
                 
                 skip: ((page - 1) * perPage),
                 take: perPage,
-                select:{pasien:true,pasienId:true,createdAt:true,waktu:true,tanggal:true,updatedAt:true,}
+                select:{id:true,pasien:true,pasienId:true,createdAt:true,waktu:true,tanggal:true,updatedAt:true,}
             })
         ]);
 
@@ -151,7 +151,7 @@ export const GetJadwalToday = async(req:Request,res:Response)=>{
             },
             skip: ((page - 1) * parseInt(perPage.toString())),
             take: parseInt(perPage.toString()),
-            select:{pasien:true,pasienId:true,createdAt:true,waktu:true,tanggal:true,updatedAt:true,}
+            select:{id:true,pasien:true,pasienId:true,createdAt:true,waktu:true,tanggal:true,updatedAt:true,}
         }),
         prisma.jadwals.count({
             where: {
@@ -197,7 +197,7 @@ export const GetJadwalTomorrow = async(req:Request,res:Response)=>{
                 },
                 skip: ((page - 1) * parseInt(perPage.toString())),
                 take: parseInt(perPage.toString()),
-                select:{pasien:true,pasienId:true,createdAt:true,waktu:true,tanggal:true,updatedAt:true,}
+                select:{id:true,pasien:true,pasienId:true,createdAt:true,waktu:true,tanggal:true,updatedAt:true,}
             }),
             prisma.jadwals.count({
                 where: {
@@ -241,7 +241,7 @@ export const GetJadwalYesterday = async(req:Request,res:Response)=>{
                 },
                 skip: ((page - 1) * parseInt(perPage.toString())),
                 take: parseInt(perPage.toString()),
-                select:{pasien:true,pasienId:true,createdAt:true,waktu:true,tanggal:true,updatedAt:true,}
+                select:{id:true,pasien:true,pasienId:true,createdAt:true,waktu:true,tanggal:true,updatedAt:true,}
             }),
             prisma.jadwals.count({
                 where: {
