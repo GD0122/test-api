@@ -42,7 +42,7 @@ interface DataPasien {
 export const _addPasien2 = async(req:Request,res:Response)=>{
   
     const {name,alamat,noTelp,tanggalLahir} = req.body
-    console.log(tanggalLahir)
+   
    
     
     const {error} = _validation_pasien({name,alamat,noTelp,tanggalLahir})
