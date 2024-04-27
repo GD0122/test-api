@@ -54,7 +54,12 @@ app.use(cors({
     credentials:true,
 }))
 app.get('/send-cookie', (req: Request, res: Response) => {
-    res.cookie('test', 'hello');
+    res.cookie('test', 'hello',{
+        maxAge: 24 * 60 * 1000,
+        sameSite:'none',
+        secure:true,
+        httpOnly:true
+    });
     res.status(200).json({ message: 'Cookie berhasil dikirim', cookie: 'test' });
   });
   
