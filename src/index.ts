@@ -47,16 +47,16 @@ const Limiter = rateLimit({
 })
 
 app.use(Limiter)
-const ori = process.env.PROD_SERV || '*'
+const ori = process.env.PROD_SERV || 'http://localhost:3000'
 
-// app.use(cors({
-//     origin:ori,
-//     credentials:true,
+app.use(cors({
+    origin:ori,
+    credentials:true,
     
-// }))
+}))
 
 app.get('/ori',(req,res)=>{
-    const origin = req.get('origin'); // Mendapatkan URL asal dari header 'Origin'
+    const origin = req.get('origin'); 
     res.status(200).json({ origins:origin,message:'oke' });
 })
 
