@@ -49,13 +49,16 @@ const Limiter = rateLimit({
 app.use(Limiter)
 const ori = process.env.PROD_SERV || '*'
 
-app.use(cors({
-    origin:ori,
-    credentials:true,
+// app.use(cors({
+//     origin:ori,
+//     credentials:true,
     
-}))
+// }))
 
-
+app.get('/ori',(req,res)=>{
+    const origin = req.get('origin'); // Mendapatkan URL asal dari header 'Origin'
+    res.status(200).json({ origin });
+})
 
 app.get('/test',_csrfProtect,(req,res)=>{
     res.send({message:"test",csrfToken:req.csrfToken()})
