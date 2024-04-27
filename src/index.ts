@@ -57,7 +57,7 @@ const ori = process.env.PROD_SERV || '*'
 
 app.get('/ori',(req,res)=>{
     const origin = req.get('origin'); // Mendapatkan URL asal dari header 'Origin'
-    res.status(200).json({ origins:origin });
+    res.status(200).json({ origins:origin,message:'oke' });
 })
 
 app.get('/test',_csrfProtect,(req,res)=>{
