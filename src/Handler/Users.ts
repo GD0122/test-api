@@ -61,7 +61,8 @@ interface Cookies {
     httpOnly: boolean;
     maxAge: number;
     secure: boolean;
-  }
+    sameSite: "strict" | "lax" | "none"; // Tipe data untuk sameSite
+}
 
 export const _loginUsers = async(req:Request,res:Response)=>{
     const {username,password} = req.body
@@ -105,8 +106,9 @@ export const _loginUsers = async(req:Request,res:Response)=>{
       const cookieOptions: Cookies = {
         httpOnly: true,
         maxAge: 7 * 24 * 60 * 60 * 1000, // 7 hari
-        secure: true// mengatur secure berdasarkan lingkungan
-      };
+        secure: true,
+        sameSite: "none" // Atau "Lax" atau "Strict" tergantung pada kebutuhan aplikasi Anda
+    };
      
         res.cookie('refresh_token',refresh_token,cookieOptions)
  
