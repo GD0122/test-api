@@ -41,19 +41,19 @@ app.disable('x-powered-by')
 
 
 
-// const Limiter = rateLimit({
-//     windowMs:1*60*1000,
-//     max:50
-// })
+const Limiter = rateLimit({
+    windowMs:1*60*1000,
+    max:50
+})
 
-// app.use(Limiter)
+app.use(Limiter)
 
 
-// app.use(cors({
-//     origin:'http://localhost:3000',
-//     credentials:true,
+app.use(cors({
+    origin:'http://localhost:3000',
+    credentials:true,
     
-// }))
+}))
 
 
 
@@ -104,12 +104,12 @@ app.get('/',(req,res)=>{
   
   // Routes
 
-// app.use('/files',_UploadsRoute)
-// app.use('/jadwal',_Jadwal_route)
-// app.use('/rekam',_Rekam_Routes)
-// app.use('/token',TokenRoutes)
-// app.use('/account', _UserRoute)
-// app.use('/pasien', routerPas)
+app.use('/files',_UploadsRoute)
+app.use('/jadwal',_Jadwal_route)
+app.use('/rekam',_Rekam_Routes)
+app.use('/token',TokenRoutes)
+app.use('/account', _UserRoute)
+app.use('/pasien', routerPas)
 
 const PORT = process.env.PORT || 5000
 app.listen(PORT ,()=>{
