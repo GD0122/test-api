@@ -49,10 +49,10 @@ const Limiter = rateLimit({
 app.use(Limiter)
 const ori = process.env.PROD_SERV || 'http://localhost:3000'
 
-app.use(cors({
-    origin:ori,
-    credentials:true,
-}))
+// app.use(cors({
+//     origin:ori,
+//     credentials:true,
+// }))
 app.get('/send-cookie', (req: Request, res: Response) => {
     res.cookie('test', 'hello');
     res.status(200).json({ message: 'Cookie berhasil dikirim', cookie: 'test' });

@@ -105,7 +105,7 @@ export const _loginUsers = async(req:Request,res:Response)=>{
       const cookieOptions: Cookies = {
         httpOnly: true,
         maxAge: 7 * 24 * 60 * 60 * 1000, // 7 hari
-        secure: false// mengatur secure berdasarkan lingkungan
+        secure: true// mengatur secure berdasarkan lingkungan
       };
      
         res.cookie('refresh_token',refresh_token,cookieOptions)
