@@ -47,10 +47,10 @@ const Limiter = rateLimit({
 })
 
 app.use(Limiter)
-
+const ori = process.env.PROD_SERV || '*'
 
 app.use(cors({
-    origin:'http://localhost:3000',
+    origin:ori,
     credentials:true,
     
 }))
