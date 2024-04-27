@@ -66,8 +66,8 @@ app.get('/send-cookie', (req: Request, res: Response) => {
   // Endpoint untuk memeriksa cookie
   app.get('/check-cookie', (req: Request, res: Response) => {
     // Mengecek apakah ada cookie yang dikirimkan dalam permintaan
-    if (req.cookies && req.cookies.test) {
-      const cookieValue = req.cookies.test;
+    if (req.cookies && req.cookies.test || req.cookies.tester) {
+      const cookieValue = req.cookies.test || req.cookies.tester;
       res.status(200).json({ success: true, cookieValue });
     } else {
       res.status(400).json({ success: false, message: 'Cookie tidak ditemukan.' });
@@ -83,7 +83,12 @@ app.post('/post',parseForm,_csrfProtect,(req,res)=>{
 })
 app.post('/tester',(req,res)=>{
     const {test} = req.body
-    return res.cookie('tester','login',{maxAge:24*60*60*1000}).status(200).json({message:"halo"})
+    return res.cookie('tester','login',{
+        maxAge: 24 * 60 * 60 * 1000,
+        sameSite:'none',
+        secure:true,
+        httpOnly:true
+    }).status(200).json({message:"halo"})
 })
 app.get('/',(req,res)=>{
     
