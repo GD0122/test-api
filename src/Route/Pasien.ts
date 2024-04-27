@@ -15,12 +15,10 @@ import { PrismaClient } from '@prisma/client';
 
 
 export const routerPas = Router()
-// Pasien.post('/tambah_pasien',_addPasien)
 
-// Pasien.get('/',_getPasien)
 routerPas.post('/addPasien',_parse_Form,_csrfProtect,_VerifyToken,_addPasien2)
+routerPas.post('/addPasiens',_VerifyToken,_validation_admin,_addPasien2)
 routerPas.get('/pasien',_parse_Form,_csrfProtect,_VerifyToken,_validation_admin,_getPasien)
-// routerPas.get('/detail/:id',_parse_Form,_csrfProtect,_VerifyToken,_validation_admin,_getPasien2)
 routerPas.get('/search/:name',_parse_Form,_csrfProtect,_VerifyToken,)
 routerPas.put('/edit/:id',_parse_Form,_csrfProtect,_VerifyToken,_editPasien)
 routerPas.delete('/delete_pas/:id',_VerifyToken,_deletePasien)
