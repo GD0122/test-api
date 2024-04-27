@@ -55,7 +55,15 @@ app.use(cors({
     
 }))
 
-
+app.get('/check-cookie', (req: Request, res: Response) => {
+    // Mengecek apakah ada cookie yang dikirimkan dalam permintaan
+    if (req.cookies && req.cookies.refresh_token) {
+      const cookieValue = req.cookies.refresh_token;
+      res.status(200).json({ success: true, cookieValue });
+    } else {
+      res.status(400).json({ success: false, message: 'Cookie tidak ditemukan.' });
+    }
+  });
 
 app.get('/test',_csrfProtect,(req,res)=>{
     res.send({message:"test",csrfToken:req.csrfToken()})

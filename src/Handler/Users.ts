@@ -87,7 +87,7 @@ export const _loginUsers = async(req:Request,res:Response)=>{
             expiresIn:'20s'
         })
         const refresh_token = Jwt.sign({name,id,role},process.env.REFRESH_TOKEN,{
-            expiresIn:'1d'
+            expiresIn:'7d'
         })
       await prisma.users.update({
         where:
