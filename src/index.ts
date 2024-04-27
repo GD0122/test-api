@@ -52,13 +52,17 @@ const ori = process.env.PROD_SERV || 'http://localhost:3000'
 app.use(cors({
     origin:ori,
     credentials:true,
-    
 }))
-
-app.get('/check-cookie', (req: Request, res: Response) => {
+app.get('/send-cookie', (req: Request, res: Response) => {
+    res.cookie('test', 'hello');
+    res.status(200).json({ message: 'Cookie berhasil dikirim', cookie: 'test' });
+  });
+  
+  // Endpoint untuk memeriksa cookie
+  app.get('/check-cookie', (req: Request, res: Response) => {
     // Mengecek apakah ada cookie yang dikirimkan dalam permintaan
-    if (req.cookies && req.cookies.refresh_token) {
-      const cookieValue = req.cookies.refresh_token;
+    if (req.cookies && req.cookies.test) {
+      const cookieValue = req.cookies.test;
       res.status(200).json({ success: true, cookieValue });
     } else {
       res.status(400).json({ success: false, message: 'Cookie tidak ditemukan.' });
