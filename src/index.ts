@@ -55,10 +55,7 @@ app.use(cors({
     
 }))
 
-app.get('/ori',(req,res)=>{
-    const origin = req.get('origin'); 
-    res.status(200).json({ origins:origin,message:'oke' });
-})
+
 
 app.get('/test',_csrfProtect,(req,res)=>{
     res.send({message:"test",csrfToken:req.csrfToken()})

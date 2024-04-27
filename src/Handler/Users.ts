@@ -57,7 +57,11 @@ export const _getUsers = async(req:Request,res:Response)=>{
         return res.status(500).json({message:ErrStatus[0].err500.message}).end()
     }
 }
-
+interface Cookies {
+    httpOnly: boolean;
+    maxAge: number;
+    secure: boolean;
+  }
 
 export const _loginUsers = async(req:Request,res:Response)=>{
     const {username,password} = req.body
@@ -97,12 +101,14 @@ export const _loginUsers = async(req:Request,res:Response)=>{
         throw err
       })
       const acc = cryptoJS.AES.encrypt(access_token,salt).toString()
+      
+      const cookieOptions: Cookies = {
+        httpOnly: true,
+        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 hari
+        secure: process.env.NODE_ENV === 'production' // mengatur secure berdasarkan lingkungan
+      };
      
-        res.cookie('refresh_token',refresh_token,{
-        httpOnly:true,
-        maxAge: 24*60*60*1000,
-        secure:true, //only https
-    })
+        res.cookie('refresh_token',refresh_token,cookieOptions)
  
     res.status(200).json({message:"Login Berhasil",ac:acc}) 
         
