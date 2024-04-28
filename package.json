@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "api",
   "main": "index.js",
-  "type": "commonjs",
+  "type": "module",
   "scripts": {
     "start": "nodemon ./src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
