@@ -24,6 +24,7 @@ import  path  from 'path'
 
 
 
+
 const app = express()
 app.use(cookieParser())
 app.use(bodyParser.json())
@@ -106,7 +107,7 @@ morgan.token('body', (req: Request, res: Response) => JSON.stringify(req.body));
 // Custom token untuk mendapatkan nilai dari req.query
 morgan.token('query', (req: Request, res: Response) => JSON.stringify(req.query));
 
-const accessLogStream = fs.createWriteStream('./Logger/access.log', { flags: 'a' });
+const accessLogStream = fs.createWriteStream('../Logger/access.log', { flags: 'a' });
 app.use(morgan((tokens:any, req: Request, res: Response) => {
     const currentDate = new Date().toISOString();
     return [
