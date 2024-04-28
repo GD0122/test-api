@@ -98,31 +98,31 @@ app.get('/',(req,res)=>{
 // logger
 
 // Custom token untuk mendapatkan req body
-// morgan.token('params', (req: Request, res: Response) => JSON.stringify(req.params));
+morgan.token('params', (req: Request, res: Response) => JSON.stringify(req.params));
 
-// // Custom token untuk mendapatkan nilai dari req.body
-// morgan.token('body', (req: Request, res: Response) => JSON.stringify(req.body));
+// Custom token untuk mendapatkan nilai dari req.body
+morgan.token('body', (req: Request, res: Response) => JSON.stringify(req.body));
 
-// // Custom token untuk mendapatkan nilai dari req.query
-// morgan.token('query', (req: Request, res: Response) => JSON.stringify(req.query));
+// Custom token untuk mendapatkan nilai dari req.query
+morgan.token('query', (req: Request, res: Response) => JSON.stringify(req.query));
 
-// const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' });
-// app.use(morgan((tokens:any, req: Request, res: Response) => {
-//     const currentDate = new Date().toISOString();
-//     return [
-//       `[${currentDate}]`,
-//       tokens.method(req, res),
-//       tokens.url(req, res),
-//       tokens.status(req, res),
-//       JSON.stringify(req.params),
-//       JSON.stringify(req.body),
-//       JSON.stringify(req.query),
-//       tokens['response-time'](req, res), 'ms',
-//       '-',
-//       tokens['remote-addr'](req, res),
-//       tokens['user-agent'](req, res),
-//     ].join(' ');
-//   }, { stream: accessLogStream, skip: (req: Request, res: Response) => req.method === 'GET' }));
+const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' });
+app.use(morgan((tokens:any, req: Request, res: Response) => {
+    const currentDate = new Date().toISOString();
+    return [
+      `[${currentDate}]`,
+      tokens.method(req, res),
+      tokens.url(req, res),
+      tokens.status(req, res),
+      JSON.stringify(req.params),
+      JSON.stringify(req.body),
+      JSON.stringify(req.query),
+      tokens['response-time'](req, res), 'ms',
+      '-',
+      tokens['remote-addr'](req, res),
+      tokens['user-agent'](req, res),
+    ].join(' ');
+  }, { stream: accessLogStream, skip: (req: Request, res: Response) => req.method === 'GET' }));
   
   // Routes
 
