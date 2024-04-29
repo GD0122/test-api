@@ -23,7 +23,7 @@ const storage = multer.diskStorage({
     },
   });
   
-const uploads = multer({storage,fileFilter:_File_filters})
+const uploads = multer()
 export const _UploadsRoute = express.Router()
 
 // _UploadsRoute.post('/upload/:id',uploads.array('images',5),_VerifyToken,_validation_admin,_IsImage, _Upload)
