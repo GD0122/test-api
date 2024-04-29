@@ -28,7 +28,7 @@ export const _Refresh_token = async(req:Request,res:Response)=>{
             const name = decoded.name
             const role = decoded.role
             const accesToken = Jwt.sign({name,id,role},process.env.ACCESS_TOKEN,{
-                expiresIn:'20s'
+                expiresIn:'60s'
             })
        
             const ac = CryptoJS.AES.encrypt(accesToken,salt).toString()
