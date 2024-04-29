@@ -9,7 +9,7 @@ import { _VerifyToken } from "../validation/_Verify_token";
 export const _Rekam_Routes = Router()
 
 _Rekam_Routes.get('/',_VerifyToken,_validation_admin,_getRekam)
-_Rekam_Routes.post('/tambah_rekam/:id',_parse_Form,_csrfProtect,_VerifyToken,_validation_admin,_addRekam)
+_Rekam_Routes.post('/tambah_rekam/:id',_VerifyToken,_validation_admin,_addRekam)
 _Rekam_Routes.put('/edit/:id',_VerifyToken,_validation_admin,_editRekam)
 _Rekam_Routes.delete('/delete/:id',_VerifyToken,_validation_admin,_deleteRekam)
 // _Rekam_Routes.post('/tambah/:idP',_addRekam)
