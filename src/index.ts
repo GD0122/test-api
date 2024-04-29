@@ -27,7 +27,7 @@ import  path  from 'path'
 const app = express()
 app.use(cookieParser())
 app.use(bodyParser.json())
-app.set('trust proxy', true);
+app.set('trust proxy', false);
 
 app.use(helmet.contentSecurityPolicy({
         directives:{

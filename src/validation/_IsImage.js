@@ -14,16 +14,16 @@ export const _IsImage = async(req,res,next)=>{
       
       const _ViewImage = await Promise.all(images?.map(async (image) => {
       
-        const isValid = await isImage(image.path)
+        const isValid = await isImage(image.buffer)
     
     if (!isValid || image.size > maxSizeImg) {
         invalidImages.push(image);
-        try {
-          await fs.unlinkSync(image.path);
+        // try {
+        //   await fs.unlinkSync(image.path);
        
-        } catch (error) {
-          console.error('Error deleting invalid image:', error);
-        }
+        // } catch (error) {
+        //   console.error('Error deleting invalid image:', error);
+        // }
       } else {
         validImages.push(image);
         
@@ -32,7 +32,7 @@ export const _IsImage = async(req,res,next)=>{
       if(validImages.length === 0) return res.status(404).json({message:'maaf tidak dapat memproses gambar'})
       req.validImages = validImages
       req.invalidImages = invalidImages
-     
+
       next()
     
     } catch (error) {
@@ -45,8 +45,7 @@ export const _IsImage = async(req,res,next)=>{
 const isImage = async (filepath) => {
     try {
        await sharp(filepath).metadata()
-    
-        return true; // File dapat dibuka, kemungkinan besar adalah gambar
+       return true; // File dapat dibuka, kemungkinan besar adalah gambar
     } catch (error) {
         return false; // File tidak dapat dibuka, bukan gambar
     }

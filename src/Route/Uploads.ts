@@ -14,16 +14,17 @@ import { _VerifyToken } from '../validation/_Verify_token'
 import { _csrfProtect, _parse_Form } from '../Handler/_CsrfProtect'
 
 
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, 'uploads');
-    },
-    filename: function (req, file, cb) {
-      cb(null,(Date.now()+file.originalname.replace(/\s/g, '').replace(/\.(jpg|png)$/i, '')) + path.extname(file.originalname));
-    },
-  });
+// const storage = multer.diskStorage({
+//     destination: function (req, file, cb) {
+//       cb(null, 'uploads');
+//     },
+//     filename: function (req, file, cb) {
+//       cb(null,(Date.now()+file.originalname.replace(/\s/g, '').replace(/\.(jpg|png)$/i, '')) + path.extname(file.originalname));
+//     },
+//   });
   
-const uploads = multer()
+const storage = multer.memoryStorage()
+const uploads = multer({storage})
 export const _UploadsRoute = express.Router()
 
 // _UploadsRoute.post('/upload/:id',uploads.array('images',5),_VerifyToken,_validation_admin,_IsImage, _Upload)
@@ -33,6 +34,7 @@ _UploadsRoute.get('/gambar',_VerifyToken,_getImage)
 _UploadsRoute.get('/gambars',_getImages)
 _UploadsRoute.get('/gambarss',_VerifyToken,_validation_admin,_getImages)
 _UploadsRoute.delete('/gambar/delete',_VerifyToken,_validation_admin, _deleteFilesImages)
+
 
 
 

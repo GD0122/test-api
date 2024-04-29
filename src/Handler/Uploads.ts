@@ -139,27 +139,26 @@ export const _uploadersImages = async(req:Request,res:Response)=>{
 
   try {
     const SaveImages = await Promise.all(images.map(async (image) => {
-     
-      
-      try {
-        const Guploads = await _uploaders(image);
+      console.log('thisImg',image)
+    //   try {
+    //     const Guploads = await _uploaders(image);
     
-        const savedImage = await prisma.gambar.create({
-        data: {
-          name: image.originalname,
-          datas: Guploads['data'].id,
-          content_type: image.mimetype,
-          pasienId: idP
-        }
-      }).catch((err) => {
-        throw new Error(`gagal memasukan ${image.originalname} kedalam database`);
-      });
-    } catch (error) {
-        console.error('Error uploading image:', error);
-        await fs.unlinkSync(image.path)
-        throw error
-    }
-      await fs.unlinkSync(image.path)
+    //     const savedImage = await prisma.gambar.create({
+    //     data: {
+    //       name: image.originalname,
+    //       datas: Guploads['data'].id,
+    //       content_type: image.mimetype,
+    //       pasienId: idP
+    //     }
+    //   }).catch((err) => {
+    //     throw new Error(`gagal memasukan ${image.originalname} kedalam database`);
+    //   });
+    // } catch (error) {
+    //     console.error('Error uploading image:', error);
+    //     // await fs.unlinkSync(image.path)
+    //     throw error
+    // }
+    //   // await fs.unlinkSync(image.path)
      
  }));
   
