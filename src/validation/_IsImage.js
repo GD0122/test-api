@@ -12,7 +12,7 @@ export const _IsImage = async(req,res,next)=>{
  
     try {
       
-      const _ViewImage = await Promise.all(images?.map(async (image) => {
+    await Promise.all(images?.map(async (image) => {
       
         const isValid = await isImage(image.buffer)
     

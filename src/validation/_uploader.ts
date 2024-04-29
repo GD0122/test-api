@@ -12,14 +12,13 @@ const auth = new google.auth.GoogleAuth({
 
 export const _uploaders = async(filesObj:any) =>{
   
-    const fileData = fs.readFileSync(filesObj.path);
-    const bufferS = new Stream.PassThrough()
-    bufferS.end(fileData)
+   console.log(filesObj)
+
     const GLOGIN = await google.drive({ version: 'v3', auth });
     const response = await GLOGIN.files.create({
         media: {
             mimeType: filesObj.mimeType,
-            body: bufferS,
+            body: new Stream.PassThrough().end(filesObj.buffer),
         },
         requestBody: {
             name: filesObj.originalname,
@@ -30,7 +29,8 @@ export const _uploaders = async(filesObj:any) =>{
         throw err
     })as any;
   
-    const data = response.data
+    const data = response?.data
+
     return {data}
 
 }

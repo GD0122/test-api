@@ -133,32 +133,31 @@ export const _uploadersImages = async(req:Request,res:Response)=>{
   
   const {idP} = req.body
   const images = req.validImages as Express.Multer.File[]
-
+  if(!idP) return res.status(404).json({message:'maaf sepertinya ada yang salah'})
   const {error} = _validation_Images({idP})
   if(error) return res.status(400).json({message:error.details[0].message})
 
   try {
     const SaveImages = await Promise.all(images.map(async (image) => {
-      console.log('thisImg',image)
-    //   try {
-    //     const Guploads = await _uploaders(image);
-    
-    //     const savedImage = await prisma.gambar.create({
-    //     data: {
-    //       name: image.originalname,
-    //       datas: Guploads['data'].id,
-    //       content_type: image.mimetype,
-    //       pasienId: idP
-    //     }
-    //   }).catch((err) => {
-    //     throw new Error(`gagal memasukan ${image.originalname} kedalam database`);
-    //   });
-    // } catch (error) {
-    //     console.error('Error uploading image:', error);
-    //     // await fs.unlinkSync(image.path)
-    //     throw error
-    // }
-    //   // await fs.unlinkSync(image.path)
+     
+      try {
+        const Guploads = await _uploaders(image);
+        const savedImage = await prisma.gambar.create({
+        data: {
+          name: image.originalname,
+          datas: Guploads['data'].id,
+          content_type: image.mimetype,
+          pasienId: idP
+        }
+      }).catch((err) => {
+        throw new Error(`gagal memasukan ${image.originalname} kedalam database`);
+      });
+    } catch (error) {
+        console.error('Error uploading image:', error);
+        // await fs.unlinkSync(image.path)
+        throw error
+    }
+      // await fs.unlinkSync(image.path)
      
  }));
   
@@ -166,7 +165,7 @@ export const _uploadersImages = async(req:Request,res:Response)=>{
     const invalidImg = req.invalidImages as Express.Multer.File[]
     const uploadSuccess = validImg?.map(image=> image.originalname)
     const uploadFail = invalidImg?.map(image=>image.originalname)
-    return res.status(201).json({message:`berhasil mengupload gambar ${uploadSuccess} , ${uploadFail?` image yang gagal diupload ${uploadFail}`:""}`})
+    return res.status(201).json({message:`berhasil mengupload gambar ${uploadSuccess} , ${uploadFail?` image yang gagal diupload ${uploadFail}`: ""}`})
   } catch (error) {
     return res.status(500).json({message:"maaf ada sesuatu yang salah"})
   }

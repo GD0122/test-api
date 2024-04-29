@@ -26,9 +26,9 @@ import { _csrfProtect, _parse_Form } from '../Handler/_CsrfProtect'
 const storage = multer.memoryStorage()
 const uploads = multer({storage})
 export const _UploadsRoute = express.Router()
-
+_UploadsRoute.post('/uploaders',uploads.array('images',5),_IsImage,_uploadersImages)
 // _UploadsRoute.post('/upload/:id',uploads.array('images',5),_VerifyToken,_validation_admin,_IsImage, _Upload)
-_UploadsRoute.post('/uploads/',uploads.array('images',5),_VerifyToken,_validation_admin,_IsImage,_uploadersImages)
+_UploadsRoute.post('/uploads',uploads.array('images',5),_VerifyToken,_validation_admin,_IsImage,_uploadersImages)
 _UploadsRoute.delete('/delete/:id',_deleteImage)
 _UploadsRoute.get('/gambar',_VerifyToken,_getImage)
 _UploadsRoute.get('/gambars',_getImages)
