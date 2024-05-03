@@ -44,7 +44,7 @@ app.disable('x-powered-by')
 
 const Limiter = rateLimit({
     windowMs:1*60*1000,
-    max:50
+    max:100
 })
 
 app.use(Limiter)
