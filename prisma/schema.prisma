@@ -35,7 +35,7 @@ model Pasien{
 
 model Rekam{
   id String @id @default(auto()) @map("_id") @db.ObjectId
-  tindakan String
+ 
   diagnosa  String
   terapi  String
   dokter String?
@@ -45,6 +45,7 @@ model Rekam{
   pasien Pasien @relation(fields:[pasienId], references:[id])
   pasienId String @db.ObjectId
   updatedAt DateTime @updatedAt
+  tindakan String
 }
 
 model Users{
