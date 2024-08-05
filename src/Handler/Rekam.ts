@@ -2,25 +2,29 @@ import { PrismaClient } from "@prisma/client";
 import { Request,Response,NextFunction } from "express";
 import { ErrStatus, ErrStatusDB } from "../HTTPs/Status";
 import { _validation_Rekam } from "../validation/_Validation";
-
+import { MongoClient } from 'mongodb';
+import { string } from "joi";
 const prisma = new PrismaClient({
     log:['query','warn','error']
+    
 })
 
 interface ResponseRekam {
     rekam:{
-        tindakan:string
+       
         diagnosa:string
         terapi:string
         dokter:string
         perawat:string
+        pro:string
+        tgl_tdkn: Date
     }[]
     pages:{
         totalData?:number
         nextPage?:number
     }
     }
-   
+ 
 
 export const _getRekam = async(req:Request,res:Response)=>{
   
@@ -39,20 +43,21 @@ export const _getRekam = async(req:Request,res:Response)=>{
 
 export const _addRekam = async(req:Request,res:Response)=>{
     const idP = req.params.id
-    const {tindakan,diagnosa,terapi,dokter,perawat} = req.body
+    const {diagnosa,terapi,dokter,perawat,pro,tgl_tdkn} = req.body
     
-    const {error} = _validation_Rekam({tindakan,diagnosa,terapi,dokter,perawat})
+    const {error} = _validation_Rekam({diagnosa,terapi,dokter,perawat})
     if(error) return res.status(404).json({message:error.details[0].message})
 
     try {
        
         const rekam = await prisma.rekam.create({
             data:{
-              tindakan,
               diagnosa,
               terapi,
               dokter,
               perawat,
+              pro,
+              tgl_tdkn:new Date(tgl_tdkn),
               pasienId:idP
             },
          
@@ -92,10 +97,10 @@ export const _deleteRekam = async(req:Request,res:Response)=>{
     }
 }
 export const _editRekam = async(req:Request,res:Response)=>{
-    const {tindakan,diagnosa,terapi,dokter,perawat} = req.body
+    const {diagnosa,terapi,dokter,perawat,pro,tgl_tdkn} = req.body
     const idR = req.params.id
    
-    const {error} = _validation_Rekam({tindakan,diagnosa,terapi,dokter,perawat})
+    const {error} = _validation_Rekam({diagnosa,terapi,dokter,perawat})
     if(error) return res.status(404).json({message:error.details[0].message})
     
     try {
@@ -105,9 +110,13 @@ export const _editRekam = async(req:Request,res:Response)=>{
                 id:idR
             },
             data:{
-               tindakan,
+               pro,
+               dokter,
+               perawat,
+               tgl_tdkn: new Date(tgl_tdkn),
                diagnosa,
-               terapi
+               terapi,
+               
             }
         }).catch((err)=>{throw err})
     return res.status(201).json({message:"data berhasil diperbarui"})
