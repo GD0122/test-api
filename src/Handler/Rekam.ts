@@ -164,4 +164,3 @@ export const _getRekamById = async(req:Request,res:Response)=>{
         return res.status(500).json(ErrStatus[0].err500.message)
     }
 }
-
