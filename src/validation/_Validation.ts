@@ -27,7 +27,7 @@ export const _validation_pasien = (data:Object)=>{
 
 export const _validation_Rekam = (data:Object)=>{
     const schema = Joi.object({
-        tindakan:Joi.string().min(2).max(1000).required(),
+       
         dokter:Joi.string().min(2).max(1000).required(),
         perawat:Joi.string().min(2).max(1000).required(),
         diagnosa:Joi.string().min(2).max(1000).required(),
